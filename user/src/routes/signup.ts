@@ -11,7 +11,7 @@ import {
 const router = express.Router();
 
 router.post(
-  '/',
+  '/signup',
   [
     nameValidator,
     emailValidator,

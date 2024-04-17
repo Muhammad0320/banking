@@ -3,14 +3,39 @@ import { emailValidator, passwordValidator } from '../services/validators';
 import User from '../model/user';
 import { Passwords } from '../services/Password';
 import jwt from 'jsonwebtoken';
+import { body } from 'express-validator';
 
 const router = express.Router();
 
 router.post(
   '/signin',
-  emailValidator,
-  passwordValidator,
-  passwordValidator,
+
+  [
+    body('passwordConfirm')
+      .trim()
+      .notEmpty()
+      .isString()
+      .withMessage('Comfirm your password'),
+
+    body('password')
+      .trim()
+      .notEmpty()
+      .isString()
+      .withMessage('Please provide a valid password'),
+
+    body('email')
+      .trim()
+      .notEmpty()
+      .isEmail()
+      .withMessage('Please provide a valid email'),
+
+    body('name')
+      .trim()
+      .notEmpty()
+      .isString()
+      .withMessage('Please provide a valid name')
+  ],
+
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 

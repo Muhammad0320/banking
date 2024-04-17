@@ -2,6 +2,7 @@ import cookieSession from 'cookie-session';
 import express, { Response } from 'express';
 import { createUserRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
+import { currentUser } from '../middleware/currentUser';
 
 const app = express();
 
@@ -18,6 +19,8 @@ app.use(
 console.log('Hi mom');
 
 const rootUrl = '/api/v1/user';
+
+app.use(currentUser);
 
 app.use(rootUrl, signinRouter);
 app.use(rootUrl, createUserRouter);

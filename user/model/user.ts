@@ -64,6 +64,10 @@ const userSchema = new mongoose.Schema({
   }
 });
 
+userSchema.statics.buildUser = async (attrs: UserAttrs) => {
+  return await User.create(attrs);
+};
+
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 
 export default User;

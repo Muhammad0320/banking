@@ -3,6 +3,7 @@ import express, { Response } from 'express';
 import { createUserRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
 import { currentUser } from '../middleware/currentUser';
+import { currentUserRouter } from './routes/currentUser';
 
 const app = express();
 
@@ -20,10 +21,9 @@ console.log('Hi mom');
 
 const rootUrl = '/api/v1/user';
 
-app.use(currentUser);
-
 app.use(rootUrl, signinRouter);
 app.use(rootUrl, createUserRouter);
+app.use(rootUrl, currentUserRouter);
 
 app.all('*', (_, res: Response) => {
   res.status(404).json({ status: 'error', data: 'Route not found' });

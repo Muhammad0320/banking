@@ -2,7 +2,7 @@ import cookieSession from 'cookie-session';
 import express, { Response } from 'express';
 import { createUserRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
-import { currentUser } from '../middleware/currentUser';
+
 import { currentUserRouter } from './routes/currentUser';
 
 const app = express();

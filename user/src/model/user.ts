@@ -51,8 +51,7 @@ const userSchema = new mongoose.Schema(
 
     role: {
       type: String,
-      default: 'user',
-      required: [true, 'This field is required']
+      default: 'user'
     },
 
     status: {

@@ -1,5 +1,5 @@
 import cookieSession from 'cookie-session';
-import express from 'express';
+import express, { Response } from 'express';
 
 const app = express();
 
@@ -12,5 +12,13 @@ app.use(
     secure: process.env.NODE_ENV !== 'test'
   })
 );
+
+console.log('Hi mom');
+
+const rootUrl = '/api/v1/user';
+
+app.all('*', (_, res: Response) => {
+  res.status(404).json({ status: 'error', data: 'Route not found' });
+});
 
 export { app };

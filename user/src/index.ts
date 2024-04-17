@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { app } from './app';
 
 const start = async () => {
   const port = 3000;
@@ -18,6 +19,10 @@ const start = async () => {
   } catch (error) {
     console.error(error);
   }
+
+  app.listen(port, () => {
+    console.log('App running on port ', port);
+  });
 };
 
 start();

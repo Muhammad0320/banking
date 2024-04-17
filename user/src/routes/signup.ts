@@ -8,18 +8,22 @@ router.post(
   '/',
   [
     body('name')
+      .trim()
       .not()
       .isEmpty()
       .isString()
       .withMessage('Please provide a valid name'),
     body('email')
+      .trim()
       .isEmail()
       .withMessage('Please provide a valid email'),
     body('password')
+      .trim()
       .notEmpty()
       .isString()
       .withMessage('Please provide a valid password'),
     body('passwordConfirm')
+      .trim()
       .notEmpty()
       .withMessage('Comfirm your password')
   ],

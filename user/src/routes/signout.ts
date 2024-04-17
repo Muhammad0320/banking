@@ -9,7 +9,7 @@ router.post(
   currentUser,
   requireAuth,
   async (req: Request, res: Response) => {
-    req.currentUser = null;
+    req.session = null;
 
     res
       .status(200)

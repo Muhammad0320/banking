@@ -14,7 +14,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(
   cookieSession({
-    httpOnly: true,
     signed: false,
     secure: process.env.NODE_ENV !== 'test'
   })

@@ -57,9 +57,11 @@ router.post(
       expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
     });
 
-    req.cookies = {
+    req.session = {
       jwt: token
     };
+
+    console.log(user);
 
     return res.status(201).json({ status: 'success', data: user });
   }

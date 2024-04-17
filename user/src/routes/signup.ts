@@ -9,12 +9,13 @@ router.post(
   [
     body('name')
       .trim()
-      .not()
-      .isEmpty()
+      .notEmpty()
+
       .isString()
       .withMessage('Please provide a valid name'),
     body('email')
       .trim()
+      .notEmpty()
       .isEmail()
       .withMessage('Please provide a valid email'),
     body('password')

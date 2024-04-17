@@ -1,4 +1,5 @@
 import User from '../model/user';
+import jwt from 'jsonwebtoken'
 import express, { Request, Response } from 'express';
 import {
   emailValidator,
@@ -17,6 +18,7 @@ router.post(
     passwordValidator,
     passwordConfirmationValidator
   ],
+
   async (req: Request, res: Response) => {
     const { email, ...attrs } = req.body;
 
@@ -27,6 +29,14 @@ router.post(
     }
 
     const user = await User.buildUser({ ...attrs, email });
+
+    const token = jwt.sign({id: user.id}, process.env.JWT_KEY!, {expiresIn: +process.env.JWT_EXPIRES_IN!});
+
+    req.cookies = {
+
+      jwt: token
+
+    }
 
     return res.status(201).json({ status: 'success', data: user });
   }

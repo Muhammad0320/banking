@@ -22,6 +22,8 @@ router.post(
   async (req: Request, res: Response) => {
     const { email, ...attrs } = req.body;
 
+    console.log('This is the place');
+
     const existingUser = await User.findOne({ email });
 
     if (!!existingUser) {
@@ -31,7 +33,7 @@ router.post(
     const user = await User.buildUser({ ...attrs, email });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_KEY!, {
-      expiresIn: +process.env.JWT_EXPIRES_IN!
+      expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
     });
 
     req.cookies = {

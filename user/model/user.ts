@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { Passwords } from '../services/Password';
 
 type UserAttrs = {
   name: string;
@@ -67,6 +68,16 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.buildUser = async (attrs: UserAttrs) => {
   return await User.create(attrs);
 };
+
+userSchema.pre('save', async function(next) {
+  if (this.isModified()) {
+    this.password = (await Passwords.hash(this.password)) as string;
+
+    this.passwordConfirm = undefined;
+  }
+
+  next();
+});
 
 const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
 

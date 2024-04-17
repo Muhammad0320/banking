@@ -17,53 +17,63 @@ type UserModel = mongoose.Model<UserDoc> & {
   buildUser: (attrs: UserAttrs) => Promise<UserDoc>;
 };
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'This field is required.'],
-    minlength: [4, 'Name should be at least 4 chars.']
-  },
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'This field is required.'],
+      minlength: [4, 'Name should be at least 4 chars.']
+    },
 
-  email: {
-    type: String,
-    unique: true,
-    required: [true, 'This field is required.']
-  },
+    email: {
+      type: String,
+      unique: true,
+      required: [true, 'This field is required.']
+    },
 
-  password: {
-    type: String,
-    required: [true, 'This field is required.'],
-    minlength: [8, 'Your password should be more than 8 chars.'],
-    select: false
-  },
+    password: {
+      type: String,
+      required: [true, 'This field is required.'],
+      minlength: [8, 'Your password should be more than 8 chars.'],
+      select: false
+    },
 
-  passwordConfirm: {
-    type: String,
-    validate: {
-      validator: function(this: UserDoc, value: string): boolean {
-        return this.password === value;
-      },
+    passwordConfirm: {
+      type: String,
+      validate: {
+        validator: function(this: UserDoc, value: string): boolean {
+          return this.password === value;
+        },
 
-      message: 'Passwords are not the same'
+        message: 'Passwords are not the same'
+      }
+    },
+
+    role: {
+      type: String,
+      default: 'user',
+      required: [true, 'This field is required']
+    },
+
+    status: {
+      type: String,
+      required: [true, 'This field is required']
+    },
+
+    createdAt: {
+      type: String,
+      default: new Date()
     }
   },
-
-  role: {
-    type: String,
-    default: 'user',
-    required: [true, 'This field is required']
-  },
-
-  status: {
-    type: String,
-    required: [true, 'This field is required']
-  },
-
-  createdAt: {
-    type: String,
-    default: new Date()
+  {
+    toJSON: {
+      transform(doc, ret) {
+        ret.id = ret._id;
+        delete ret._id; //
+      }
+    }
   }
-});
+);
 
 userSchema.statics.buildUser = async (attrs: UserAttrs) => {
   return await User.create(attrs);

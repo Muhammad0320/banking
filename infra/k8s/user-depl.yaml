@@ -18,6 +18,8 @@ spec:
           env:
             - name: MONGO_URI
               value: "mongodb://user-mongo-srv:27017/user"
+            - name: JWT_EXPIRES_IN
+              value: "24"
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:

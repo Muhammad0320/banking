@@ -1,6 +1,5 @@
-import express, { Request, Response } from 'express';
 import User from '../model/user';
-import { body } from 'express-validator';
+import express, { Request, Response } from 'express';
 import {
   emailValidator,
   nameValidator,

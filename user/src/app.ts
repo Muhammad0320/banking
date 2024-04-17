@@ -1,6 +1,7 @@
 import cookieSession from 'cookie-session';
 import express, { Response } from 'express';
-import { createUserRouter } from './routes/new';
+import { createUserRouter } from './routes/signup';
+import { signinRouter } from './routes/signin';
 
 const app = express();
 
@@ -18,6 +19,7 @@ console.log('Hi mom');
 
 const rootUrl = '/api/v1/user';
 
+app.use(rootUrl, signinRouter);
 app.use(rootUrl, createUserRouter);
 
 app.all('*', (_, res: Response) => {

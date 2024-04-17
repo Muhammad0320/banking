@@ -15,6 +15,8 @@ router.get(
     if (!currentUser) {
       throw new Error('Not Authorized');
     }
+
+    res.status(200).json({ status: 'success', data: user });
   }
 );
 

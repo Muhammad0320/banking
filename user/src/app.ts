@@ -1,5 +1,6 @@
 import cookieSession from 'cookie-session';
 import express, { Response } from 'express';
+import { createUserRouter } from '../routes/new';
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(
 console.log('Hi mom');
 
 const rootUrl = '/api/v1/user';
+
+app.use(rootUrl, createUserRouter);
 
 app.all('*', (_, res: Response) => {
   res.status(404).json({ status: 'error', data: 'Route not found' });

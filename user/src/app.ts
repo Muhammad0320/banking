@@ -1,6 +1,6 @@
 import cookieSession from 'cookie-session';
 import express, { Response } from 'express';
-import { createUserRouter } from '../routes/new';
+import { createUserRouter } from './routes/new';
 
 const app = express();
 

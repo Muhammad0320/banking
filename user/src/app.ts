@@ -4,6 +4,8 @@ import { createUserRouter } from './routes/signup';
 import { signinRouter } from './routes/signin';
 
 import { currentUserRouter } from './routes/currentUser';
+import { NotFound } from '../error/NotFound';
+import { globalErrorHandler } from '../middleware/globalErrorHandler';
 
 const app = express();
 
@@ -29,8 +31,10 @@ app.use(rootUrl, signinRouter);
 app.use(rootUrl, createUserRouter);
 app.use(rootUrl, currentUserRouter);
 
-app.all('*', (_, res: Response) => {
-  res.status(404).json({ status: 'error', data: 'Route not found' });
+app.all('*', () => {
+  throw new NotFound('Route not found');
 });
+
+app.use(globalErrorHandler);
 
 export { app };

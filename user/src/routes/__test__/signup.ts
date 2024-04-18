@@ -8,3 +8,27 @@ it('returns a status other than 404, to assert the route is valid', async () => 
 
   expect(statusCode).not.toEqual(404);
 });
+
+it('returns a 400 on invalid email', async () => {
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
+      name: 'shit man',
+      email: '',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
+      name: 'shit man',
+
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+});

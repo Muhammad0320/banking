@@ -25,7 +25,28 @@ it('returns a 400 on invalid email', async () => {
     .post('/api/v1/users/signup')
     .send({
       name: 'shit man',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+});
 
+it('returns a 400 on invalid name', async () => {
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
+      name: '',
+      email: '',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
       password: 'shijgtnjngnrgnr',
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'

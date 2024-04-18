@@ -1,11 +1,13 @@
 import { NextFunction, Request, Response } from 'express';
 import { BadRequest } from '../error/BadRequest';
+import mongoose from 'mongoose';
 
-export const paramsChecker = (param: string) => {
+export const paramsChecker = (type: string) => {
   return (req: Request, res: Response, next: NextFunction) => {
-    const params = req.params[param];
-
-    if (!params) return new BadRequest('Please provide a valid param  ');
+    if (type === 'id') {
+      if (!mongoose.Types.ObjectId.isValid(req.params.id))
+        throw new BadRequest('Please provide a valid mongoose id');
+    }
 
     next();
   };

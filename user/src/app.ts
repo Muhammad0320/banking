@@ -1,10 +1,9 @@
+import express from 'express';
 import cookieSession from 'cookie-session';
-import express, { Response } from 'express';
-import { createUserRouter } from './routes/signup';
-import { signinRouter } from './routes/signin';
-
-import { currentUserRouter } from './routes/currentUser';
 import { NotFound } from '../error/NotFound';
+import { signinRouter } from './routes/signin';
+import { createUserRouter } from './routes/signup';
+import { currentUserRouter } from './routes/currentUser';
 import { globalErrorHandler } from '../middleware/globalErrorHandler';
 
 const app = express();

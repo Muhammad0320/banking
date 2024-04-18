@@ -48,7 +48,7 @@ router.post(
     const existingUser = await User.findOne({ email });
 
     if (!!existingUser) {
-      throw new Error('Bad request Error');
+      throw new Error('Bad request Error wooooooo');
     }
 
     const user = await User.buildUser({ ...attrs, email });
@@ -61,7 +61,7 @@ router.post(
       jwt: token
     };
 
-    console.log(user);
+    console.log(req.session);
 
     return res.status(201).json({ status: 'success', data: user });
   }

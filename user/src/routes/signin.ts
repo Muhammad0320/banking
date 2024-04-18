@@ -10,31 +10,7 @@ const router = express.Router();
 router.post(
   '/signin',
 
-  [
-    body('passwordConfirm')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Comfirm your password'),
-
-    body('password')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Please provide a valid password'),
-
-    body('email')
-      .trim()
-      .notEmpty()
-      .isEmail()
-      .withMessage('Please provide a valid email'),
-
-    body('name')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Please provide a valid name')
-  ],
+  [emailValidator(), passwordValidator()],
 
   async (req: Request, res: Response) => {
     const { email, password } = req.body;

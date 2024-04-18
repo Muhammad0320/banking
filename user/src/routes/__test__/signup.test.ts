@@ -3,7 +3,7 @@ import { app } from '../../app';
 
 it('returns a status other than 404, to assert the route is valid', async () => {
   const { statusCode } = await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({});
 
   expect(statusCode).not.toEqual(404);
@@ -11,7 +11,7 @@ it('returns a status other than 404, to assert the route is valid', async () => 
 
 it('returns a 400 on invalid email', async () => {
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       name: 'shit man',
       email: '',
@@ -22,7 +22,7 @@ it('returns a 400 on invalid email', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       name: 'shit man',
       password: 'shijgtnjngnrgnr',
@@ -34,7 +34,7 @@ it('returns a 400 on invalid email', async () => {
 
 it('returns a 400 on invalid name', async () => {
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       name: '',
       email: 'shitman@gmail.com',
@@ -45,7 +45,7 @@ it('returns a 400 on invalid name', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       email: 'shitman@gmail.com',
 
@@ -58,7 +58,7 @@ it('returns a 400 on invalid name', async () => {
 
 it('returns a 400 on invalid password ', async () => {
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       name: 'shit man',
 
@@ -70,7 +70,7 @@ it('returns a 400 on invalid password ', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/users/signup')
+    .post('/api/v1/user/signup')
     .send({
       name: 'shit man',
 
@@ -82,7 +82,7 @@ it('returns a 400 on invalid password ', async () => {
     .expect(400);
 
   // await request(app)
-  //   .post('/api/v1/users/signup')
+  //   .post('/api/v1/user/signup')
   //   .send({
 
   //     name: 'shit man',

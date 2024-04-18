@@ -3,6 +3,7 @@ import { emailValidator, passwordValidator } from '../services/validators';
 import User from '../model/user';
 import { Passwords } from '../services/Password';
 import jwt from 'jsonwebtoken';
+import { requestValidator } from '../../middleware/requestValidator';
 
 const router = express.Router();
 
@@ -10,6 +11,8 @@ router.post(
   '/signin',
 
   [emailValidator(), passwordValidator()],
+
+  requestValidator,
 
   async (req: Request, res: Response) => {
     const { email, password } = req.body;

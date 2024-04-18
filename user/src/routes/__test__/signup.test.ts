@@ -37,7 +37,7 @@ it('returns a 400 on invalid name', async () => {
     .post('/api/v1/users/signup')
     .send({
       name: '',
-      email: '',
+      email: 'shitman@gmail.com',
       password: 'shijgtnjngnrgnr',
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'
@@ -47,9 +47,51 @@ it('returns a 400 on invalid name', async () => {
   await request(app)
     .post('/api/v1/users/signup')
     .send({
+      email: 'shitman@gmail.com',
+
       password: 'shijgtnjngnrgnr',
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'
     })
     .expect(400);
+});
+
+it('returns a 400 on invalid password ', async () => {
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
+      name: 'shit man',
+
+      email: 'shitman@gmail.com',
+      password: 'snr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+
+  await request(app)
+    .post('/api/v1/users/signup')
+    .send({
+      name: 'shit man',
+
+      email: 'shitman@gmail.com',
+
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+
+  // await request(app)
+  //   .post('/api/v1/users/signup')
+  //   .send({
+
+  //     name: 'shit man',
+
+  //     email: 'shitman@gmail.com',
+
+  //     password: 'shijgtneeewr',
+  //     passwordConfirm: 'shijgtnjngnrgnr',
+  //     status: 'shit'
+  //   })
+  //   .expect(400);
 });

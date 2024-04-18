@@ -3,7 +3,6 @@ import { emailValidator, passwordValidator } from '../services/validators';
 import User from '../model/user';
 import { Passwords } from '../services/Password';
 import jwt from 'jsonwebtoken';
-import { body } from 'express-validator';
 
 const router = express.Router();
 

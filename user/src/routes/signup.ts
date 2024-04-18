@@ -7,7 +7,8 @@ import {
   passwordConfirmationValidator,
   passwordValidator
 } from '../services/validators';
-import { body } from 'express-validator';
+import { BadRequest } from '../../error/BadRequest';
+import { requestValidator } from '../../middleware/requestValidator';
 
 const router = express.Router();
 
@@ -15,40 +16,23 @@ router.post(
   '/signup',
 
   [
-    body('passwordConfirm')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Comfirm your password'),
-
-    body('password')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Please provide a valid password'),
-
-    body('email')
-      .trim()
-      .notEmpty()
-      .isEmail()
-      .withMessage('Please provide a valid email'),
-
-    body('name')
-      .trim()
-      .notEmpty()
-      .isString()
-      .withMessage('Please provide a valid name')
+    emailValidator(),
+    nameValidator(),
+    passwordValidator(),
+    passwordConfirmationValidator()
   ],
+
+  requestValidator,
 
   async (req: Request, res: Response) => {
     const { email, ...attrs } = req.body;
 
-    console.log('This is the place');
-
     const existingUser = await User.findOne({ email });
 
     if (!!existingUser) {
-      throw new Error('Bad request Error wooooooo');
+      throw new BadRequest(
+        'This email is in use, Please use another email and try again! '
+      );
     }
 
     const user = await User.buildUser({ ...attrs, email });
@@ -60,8 +44,6 @@ router.post(
     req.session = {
       jwt: token
     };
-
-    console.log(req.session);
 
     return res.status(201).json({ status: 'success', data: user });
   }

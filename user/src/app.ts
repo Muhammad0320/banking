@@ -1,4 +1,5 @@
 import express from 'express';
+import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { NotFound } from '../error/NotFound';
 import { signinRouter } from './routes/signin';

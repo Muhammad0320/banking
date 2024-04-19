@@ -41,7 +41,9 @@ it('returns a 400 on incorrect password', async () => {
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'
     })
-    .expect(200);
+    .expect(201);
+
+  console.log(data);
 
   await request(app)
     .post('/api/v1/user/signin')

@@ -1,5 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
+import User from '../../model/user';
 
 it('returns a status other than 404, to assert the route is valid', async () => {
   const { statusCode } = await request(app)
@@ -97,7 +98,7 @@ it('returns a 400 if both inputs are not the same', async () => {
     .expect(400);
 });
 
-it(' returns a 200 on valid inputs', async () => {
+it(' returns a 201 on valid inputs', async () => {
   await request(app)
     .post('/api/v1/user/signup')
     .send({
@@ -107,5 +108,42 @@ it(' returns a 200 on valid inputs', async () => {
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'
     })
-    .expect(200);
+    .expect(201);
+});
+
+it('adds a cookie to the header on valid inputs', async () => {
+  const response = await request(app)
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
+      email: 'shitman@gmail.com',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(201);
+
+  expect(response.get('Set-Cookie')).toBeDefined();
+
+  expect(response.body.data.name).toEqual('shit man');
+  expect(response.body.data.email).toEqual('shitman@gmail.com');
+});
+
+it('asserts that the mongoDB collcection is updated', async () => {
+  const user = await User.find({});
+
+  expect(user.length).toEqual(0);
+
+  await request(app)
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
+      email: 'shitman@gmail.com',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(201);
+
+  expect(user.length).toEqual(1);
 });

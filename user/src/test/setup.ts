@@ -35,7 +35,7 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-global.signin = async (): Promise<string[]> => {
+global.signin = async () => {
   const response = await request(app)
     .post('/api/v1/user/signup')
     .send({

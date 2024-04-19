@@ -71,7 +71,7 @@ it('returns a 200 on valid inputs', async () => {
       passwordConfirm: 'shijgtnjngnrgnr',
       status: 'shit'
     })
-    .expect(200);
+    .expect(201);
 
   await request(app)
     .post('/api/v1/user/signin')
@@ -80,4 +80,29 @@ it('returns a 200 on valid inputs', async () => {
       password: 'shijgtnjngnrgnr'
     })
     .expect(200);
+});
+
+it('assets that a cookie was set to the headers', async () => {
+  const {
+    body: { data }
+  } = await request(app)
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
+      email: 'shitman@gmail.com',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(201);
+
+  const response = await request(app)
+    .post('/api/v1/user/signin')
+    .send({
+      email: data.email,
+      password: 'shijgtnjngnrgnr'
+    })
+    .expect(200);
+
+  expect(response.get('Set-Cookie')).toBeDefined();
 });

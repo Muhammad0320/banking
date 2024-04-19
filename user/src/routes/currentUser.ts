@@ -13,7 +13,7 @@ router.get(
   async (req: Request, res: Response) => {
     const user = await User.findById(req.currentUser?.id);
 
-    if (!currentUser) {
+    if (!user) {
       throw new NotAuthorized();
     }
 

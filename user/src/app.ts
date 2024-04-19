@@ -6,6 +6,7 @@ import { signinRouter } from './routes/signin';
 import { createUserRouter } from './routes/signup';
 import { currentUserRouter } from './routes/currentUser';
 import { globalErrorHandler } from '../middleware/globalErrorHandler';
+import { signoutRouter } from './routes/signout';
 
 const app = express();
 
@@ -28,6 +29,7 @@ console.log('Hi mom');
 const rootUrl = '/api/v1/user';
 
 app.use(rootUrl, signinRouter);
+app.use(rootUrl, signoutRouter);
 app.use(rootUrl, createUserRouter);
 app.use(rootUrl, currentUserRouter);
 

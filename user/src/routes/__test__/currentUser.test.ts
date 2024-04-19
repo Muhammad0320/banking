@@ -2,7 +2,7 @@ import request from 'supertest';
 import { app } from '../../app';
 
 it('returns a 401, if unauthorized user access this route', async () => {
-  request(app)
+  await request(app)
     .get('/api/v1/user/currentUser')
     .send()
     .expect(401);
@@ -18,6 +18,8 @@ it('returns a 200, if authenticated user access this route', async () => {
     .set('Cookie', cookie)
     .send()
     .expect(200);
+
+  console.log(data);
 
   expect(data.email).toEqual('shitman@gmail.com');
 });

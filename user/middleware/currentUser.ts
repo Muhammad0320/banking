@@ -18,9 +18,11 @@ export const currentUser = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.cookies?.jwt) return next();
+  console.log(!!req.session?.jwt, 'from current user route');
 
-  const user = jwt.verify(req.cookies.jwt, process.env.JWT_KEY!) as UserPayload;
+  if (!req.session?.jwt) return next();
+
+  const user = jwt.verify(req.session.jwt, process.env.JWT_KEY!) as UserPayload;
 
   req.currentUser = user;
 

@@ -64,7 +64,7 @@ it('returns a 400 on invalid password ', async () => {
 
       email: 'shitman@gmail.com',
       password: 'snr',
-      passwordConfirm: 'shijgtnjngnrgnr',
+      passwordConfirm: 'snr',
       status: 'shit'
     })
     .expect(400);
@@ -80,18 +80,32 @@ it('returns a 400 on invalid password ', async () => {
       status: 'shit'
     })
     .expect(400);
+});
 
-  // await request(app)
-  //   .post('/api/v1/user/signup')
-  //   .send({
+it('returns a 400 if both inputs are not the same', async () => {
+  await request(app)
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
 
-  //     name: 'shit man',
+      email: 'shitman@gmail.com',
 
-  //     email: 'shitman@gmail.com',
+      password: 'shijgtneeewr',
+      passwordConfirm: 'shijgtnjejngnrgnr',
+      status: 'shit'
+    })
+    .expect(400);
+});
 
-  //     password: 'shijgtneeewr',
-  //     passwordConfirm: 'shijgtnjngnrgnr',
-  //     status: 'shit'
-  //   })
-  //   .expect(400);
+it(' returns a 200 on valid inputs', async () => {
+  await request(app)
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
+      email: 'shitman@gmail.com',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(200);
 });

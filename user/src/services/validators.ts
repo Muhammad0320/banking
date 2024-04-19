@@ -1,4 +1,5 @@
 import { body } from 'express-validator';
+import { Request } from 'express';
 
 export const nameValidator = () =>
   body('name')
@@ -18,12 +19,14 @@ export const passwordValidator = () =>
   body('password')
     .trim()
     .notEmpty()
+    .isString()
     .isLength({ min: 8 })
-    .withMessage('Please provide a valid password');
+    .withMessage('Password should be at least 8 chars');
 
 export const passwordConfirmationValidator = () =>
   body('passwordConfirm')
     .trim()
     .notEmpty()
     .isString()
-    .withMessage('Comfirm your password');
+    .custom((input: string, { req }) => input === req.body.password)
+    .withMessage('Passwords are not the same');

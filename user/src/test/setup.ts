@@ -6,11 +6,8 @@ import { app } from '../app';
 let mongo: any;
 
 declare global {
-
-  var signin: () => Promise<string[]>
-
+  var signin: () => Promise<string[]>;
 }
-
 
 beforeAll(async () => {
   process.env.JWT_KEY = 'my-super-long-and-ultra-secured-jwt-secret-key';
@@ -38,33 +35,23 @@ afterAll(async () => {
   await mongoose.connection.close();
 });
 
-
 global.signin = async (): Promise<string[]> => {
-
-
   const response = await request(app)
-  .post('/api/v1/user/signup')
-  .send({
-    name: 'shit man',
-    email: 'shitman@gmail.com',
-    password: 'shijgtnjngnrgnr',
-    passwordConfirm: 'shijgtnjngnrgnr',
-    status: 'shit'
-  })
-  .expect(201);
+    .post('/api/v1/user/signup')
+    .send({
+      name: 'shit man',
+      email: 'shitman@gmail.com',
+      password: 'shijgtnjngnrgnr',
+      passwordConfirm: 'shijgtnjngnrgnr',
+      status: 'shit'
+    })
+    .expect(201);
 
-  const cookie = response.get('Set-Cookie')
+  const cookie = response.get('Set-Cookie');
 
-
-  if(!cookie) {
-
+  if (!cookie) {
     throw new Error('cookie not found');
-
   }
 
-  return cookie
-
-
-}
-
-
+  return cookie;
+};

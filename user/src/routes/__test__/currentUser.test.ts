@@ -19,7 +19,5 @@ it('returns a 200, if authenticated user access this route', async () => {
     .send()
     .expect(200);
 
-  console.log(data);
-
   expect(data.email).toEqual('shitman@gmail.com');
 });

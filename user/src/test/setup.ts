@@ -53,7 +53,5 @@ global.signin = async () => {
     throw new Error('cookie not found');
   }
 
-  console.log(cookie);
-
   return cookie;
 };

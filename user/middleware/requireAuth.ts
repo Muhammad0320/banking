@@ -6,8 +6,6 @@ export const requireAuth = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(req.currentUser, 'from requireAuth');
-
   if (!req.currentUser) throw new NotAuthorized();
 
   next();

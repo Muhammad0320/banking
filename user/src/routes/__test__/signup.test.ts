@@ -130,7 +130,7 @@ it('adds a cookie to the header on valid inputs', async () => {
 });
 
 it('asserts that the mongoDB collcection is updated', async () => {
-  const user = await User.find({});
+  let user = await User.find({});
 
   expect(user.length).toEqual(0);
 
@@ -144,6 +144,8 @@ it('asserts that the mongoDB collcection is updated', async () => {
       status: 'shit'
     })
     .expect(201);
+
+  user = await User.find({});
 
   expect(user.length).toEqual(1);
 });

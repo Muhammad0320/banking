@@ -82,7 +82,7 @@ it('returns a 200 on valid inputs', async () => {
     .expect(200);
 });
 
-it('assets that a cookie was set to the headers', async () => {
+it('asserts that a cookie was set to the headers', async () => {
   const {
     body: { data }
   } = await request(app)

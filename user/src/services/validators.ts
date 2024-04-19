@@ -18,7 +18,7 @@ export const passwordValidator = () =>
   body('password')
     .trim()
     .notEmpty()
-    .isString()
+    .isLength({ min: 8 })
     .withMessage('Please provide a valid password');
 
 export const passwordConfirmationValidator = () =>

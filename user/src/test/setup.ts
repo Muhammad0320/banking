@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 let mongo: any;
 
 beforeAll(async () => {
+  process.env.JWT_KEY = 'my-super-long-and-ultra-secured-jwt-secret-key';
+  process.env.JWT_EXPIRES_IN = '24';
   mongo = await MongoMemoryServer.create();
 
   const mongoUri = await mongo.getUri();

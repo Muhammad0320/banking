@@ -43,8 +43,6 @@ it('returns a 400 on incorrect password', async () => {
     })
     .expect(201);
 
-  console.log(data);
-
   await request(app)
     .post('/api/v1/user/signin')
     .send({

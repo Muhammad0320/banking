@@ -7,6 +7,15 @@ build:
   local:
     push: false
   artifacts:
+    - image: muhammad0320/auth
+      context: auth
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: "src/**/*.ts"
+            dest: .
+
     - image: muhammad0320/user
       context: user
       docker:

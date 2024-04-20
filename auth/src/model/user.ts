@@ -2,16 +2,13 @@ import mongoose from 'mongoose';
 import { Passwords } from '../services/Password';
 
 type UserAttrs = {
-  name: string;
   email: string;
+  createdAt: Date;
   password: string;
   passwordConfirm: string;
-  status: string;
-  role: string;
-  createdAt: Date;
 };
 
-type UserDoc = mongoose.Document & UserAttrs & { version: number };
+type UserDoc = mongoose.Document & UserAttrs & { createdAt: Date };
 
 type UserModel = mongoose.Model<UserDoc> & {
   buildUser: (attrs: UserAttrs) => Promise<UserDoc>;
@@ -19,12 +16,6 @@ type UserModel = mongoose.Model<UserDoc> & {
 
 const userSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, 'This field is required.'],
-      minlength: [4, 'Name should be at least 4 chars.']
-    },
-
     email: {
       type: String,
       unique: true,
@@ -46,16 +37,6 @@ const userSchema = new mongoose.Schema(
 
         message: 'Passwords are not the same'
       }
-    },
-
-    role: {
-      type: String,
-      default: 'user'
-    },
-
-    status: {
-      type: String,
-      required: [true, 'This field is required']
     },
 
     createdAt: {

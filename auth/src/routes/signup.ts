@@ -14,12 +14,7 @@ const router = express.Router();
 router.post(
   '/signup',
 
-  [
-    emailValidator(),
-    nameValidator(),
-    passwordValidator(),
-    passwordConfirmationValidator()
-  ],
+  [emailValidator(), passwordValidator(), passwordConfirmationValidator()],
 
   requestValidator,
 

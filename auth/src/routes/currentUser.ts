@@ -1,5 +1,5 @@
 import { currentUser, NotAuthorized, requireAuth } from '@m0banking/common';
-import User from '../model/auth';
+import Auth from '../model/auth';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();
@@ -9,14 +9,14 @@ router.get(
   currentUser,
   requireAuth,
   async (req: Request, res: Response) => {
-    const user = await User.findById(req.currentUser?.id);
+    const auth = await Auth.findById(req.currentUser?.id);
 
-    if (!user) {
+    if (!auth) {
       throw new NotAuthorized();
     }
 
-    res.status(200).json({ status: 'success', data: user });
+    res.status(200).json({ status: 'success', data: auth });
   }
 );
 
-export { router as currentUserRouter };
+export { router as currentAuthRouter };

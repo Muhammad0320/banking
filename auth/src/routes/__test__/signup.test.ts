@@ -14,45 +14,17 @@ it('returns a 400 on invalid email', async () => {
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       email: '',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(400);
 
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
-    })
-    .expect(400);
-});
-
-it('returns a 400 on invalid name', async () => {
-  await request(app)
-    .post('/api/v1/auth/signup')
-    .send({
-      name: '',
-      email: 'shitman@gmail.com',
-      password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
-    })
-    .expect(400);
-
-  await request(app)
-    .post('/api/v1/auth/signup')
-    .send({
-      email: 'shitman@gmail.com',
-
-      password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(400);
 });
@@ -61,24 +33,18 @@ it('returns a 400 on invalid password ', async () => {
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
-
       email: 'shitman@gmail.com',
       password: 'snr',
-      passwordConfirm: 'snr',
-      status: 'shit'
+      passwordConfirm: 'snr'
     })
     .expect(400);
 
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
-
       email: 'shitman@gmail.com',
 
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(400);
 });
@@ -87,13 +53,10 @@ it('returns a 400 if both inputs are not the same', async () => {
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
-
       email: 'shitman@gmail.com',
 
       password: 'shijgtneeewr',
-      passwordConfirm: 'shijgtnjejngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjejngnrgnr'
     })
     .expect(400);
 });
@@ -102,11 +65,9 @@ it(' returns a 201 on valid inputs', async () => {
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       email: 'shitman@gmail.com',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(201);
 });
@@ -115,11 +76,9 @@ it('adds a cookie to the header on valid inputs', async () => {
   const response = await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       email: 'shitman@gmail.com',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(201);
 
@@ -136,11 +95,9 @@ it('asserts that the mongoDB collcection is updated', async () => {
   await request(app)
     .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       email: 'shitman@gmail.com',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(201);
 

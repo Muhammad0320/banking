@@ -1,20 +1,20 @@
 import mongoose from 'mongoose';
 import { Passwords } from '../services/Password';
 
-type UserAttrs = {
+type authAttrs = {
   email: string;
   createdAt: Date;
   password: string;
   passwordConfirm: string;
 };
 
-type UserDoc = mongoose.Document & UserAttrs & { createdAt: Date };
+type authDoc = mongoose.Document & authAttrs & { createdAt: Date };
 
-type UserModel = mongoose.Model<UserDoc> & {
-  buildUser: (attrs: UserAttrs) => Promise<UserDoc>;
+type authModel = mongoose.Model<authDoc> & {
+  buildauth: (attrs: authAttrs) => Promise<authDoc>;
 };
 
-const userSchema = new mongoose.Schema(
+const authSchema = new mongoose.Schema(
   {
     email: {
       type: String,
@@ -31,7 +31,7 @@ const userSchema = new mongoose.Schema(
     passwordConfirm: {
       type: String,
       validate: {
-        validator: function(this: UserDoc, value: string): boolean {
+        validator: function(this: authDoc, value: string): boolean {
           return this.password === value;
         },
 
@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema(
     },
 
     createdAt: {
-      type: String,
+      type: Date,
       default: new Date()
     }
   },
@@ -54,11 +54,11 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-userSchema.statics.buildUser = async (attrs: UserAttrs) => {
-  return await User.create(attrs);
+authSchema.statics.buildauth = async (attrs: authAttrs) => {
+  return await auth.create(attrs);
 };
 
-userSchema.pre('save', async function(next) {
+authSchema.pre('save', async function(next) {
   if (this.isModified()) {
     this.password = (await Passwords.hash(this.password)) as string;
 
@@ -68,6 +68,6 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
-const User = mongoose.model<UserDoc, UserModel>('User', userSchema);
+const auth = mongoose.model<authDoc, authModel>('auth', authSchema);
 
-export default User;
+export default auth;

@@ -37,13 +37,11 @@ afterAll(async () => {
 
 global.signin = async () => {
   const response = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
-      name: 'shit man',
       email: 'shitman@gmail.com',
       password: 'shijgtnjngnrgnr',
-      passwordConfirm: 'shijgtnjngnrgnr',
-      status: 'shit'
+      passwordConfirm: 'shijgtnjngnrgnr'
     })
     .expect(201);
 
@@ -55,5 +53,3 @@ global.signin = async () => {
 
   return cookie;
 };
-
-

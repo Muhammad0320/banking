@@ -1,6 +1,6 @@
-import { NextFunction, Request, Response } from "express";
-import { BadRequest } from "../../user/error/BadRequest";
 import mongoose from "mongoose";
+import { NextFunction, Request, Response } from "express";
+import { BadRequest } from "../error/BadRequest";
 
 export const paramsChecker = (type: string) => {
   return (req: Request, res: Response, next: NextFunction) => {

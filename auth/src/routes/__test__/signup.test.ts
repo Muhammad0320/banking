@@ -4,7 +4,7 @@ import User from '../../model/auth';
 
 it('returns a status other than 404, to assert the route is valid', async () => {
   const { statusCode } = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({});
 
   expect(statusCode).not.toEqual(404);
@@ -12,7 +12,7 @@ it('returns a status other than 404, to assert the route is valid', async () => 
 
 it('returns a 400 on invalid email', async () => {
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: '',
@@ -23,7 +23,7 @@ it('returns a 400 on invalid email', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       password: 'shijgtnjngnrgnr',
@@ -35,7 +35,7 @@ it('returns a 400 on invalid email', async () => {
 
 it('returns a 400 on invalid name', async () => {
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: '',
       email: 'shitman@gmail.com',
@@ -46,7 +46,7 @@ it('returns a 400 on invalid name', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       email: 'shitman@gmail.com',
 
@@ -59,7 +59,7 @@ it('returns a 400 on invalid name', async () => {
 
 it('returns a 400 on invalid password ', async () => {
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
 
@@ -71,7 +71,7 @@ it('returns a 400 on invalid password ', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
 
@@ -85,7 +85,7 @@ it('returns a 400 on invalid password ', async () => {
 
 it('returns a 400 if both inputs are not the same', async () => {
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
 
@@ -100,7 +100,7 @@ it('returns a 400 if both inputs are not the same', async () => {
 
 it(' returns a 201 on valid inputs', async () => {
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',
@@ -113,7 +113,7 @@ it(' returns a 201 on valid inputs', async () => {
 
 it('adds a cookie to the header on valid inputs', async () => {
   const response = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',
@@ -135,7 +135,7 @@ it('asserts that the mongoDB collcection is updated', async () => {
   expect(user.length).toEqual(0);
 
   await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',

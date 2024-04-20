@@ -61,7 +61,7 @@ it('returns a 400 on incorrect password', async () => {
 
 it('returns a 200 on valid inputs', async () => {
   const {
-    body: { data }
+    body: { data: signupData }
   } = await request(app)
     .post('/api/v1/auth/signup')
     .send({
@@ -73,13 +73,17 @@ it('returns a 200 on valid inputs', async () => {
     })
     .expect(201);
 
-  await request(app)
+  const {
+    body: { data: signinData }
+  } = await request(app)
     .post('/api/v1/auth/signin')
     .send({
-      email: data.email,
+      email: signupData.email,
       password: 'shijgtnjngnrgnr'
     })
     .expect(200);
+
+  expect(signinData.email).toEqual(signupData.email);
 });
 
 it('asserts that a cookie was set to the headers', async () => {

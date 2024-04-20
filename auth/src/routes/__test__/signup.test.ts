@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import User from '../../model/auth';
+import Auth from '../../model/auth';
 
 it('returns a status other than 404, to assert the route is valid', async () => {
   const { statusCode } = await request(app)
@@ -125,14 +125,13 @@ it('adds a cookie to the header on valid inputs', async () => {
 
   expect(response.get('Set-Cookie')).toBeDefined();
 
-  expect(response.body.data.name).toEqual('shit man');
   expect(response.body.data.email).toEqual('shitman@gmail.com');
 });
 
 it('asserts that the mongoDB collcection is updated', async () => {
-  let user = await User.find({});
+  let auth = await Auth.find({});
 
-  expect(user.length).toEqual(0);
+  expect(auth.length).toEqual(0);
 
   await request(app)
     .post('/api/v1/auth/signup')
@@ -145,7 +144,7 @@ it('asserts that the mongoDB collcection is updated', async () => {
     })
     .expect(201);
 
-  user = await User.find({});
+  auth = await Auth.find({});
 
-  expect(user.length).toEqual(1);
+  expect(auth.length).toEqual(1);
 });

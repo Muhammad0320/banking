@@ -80,3 +80,14 @@ const accountSchema = new mongoose.Schema({
     default: new Date()
   }
 });
+
+accountSchema.statics.buildAccount = async (attrs: AccountAttrs) => {
+  return await Account.create(attrs);
+};
+
+const Account = mongoose.model<AccountDoc, AccountModel>(
+  'Account',
+  accountSchema
+);
+
+export default Account;

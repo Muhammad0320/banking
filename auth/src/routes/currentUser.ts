@@ -1,5 +1,5 @@
 import { currentUser, NotAuthorized, requireAuth } from '@m0banking/common';
-import User from '../model/user';
+import User from '../model/auth';
 import express, { Request, Response } from 'express';
 
 const router = express.Router();

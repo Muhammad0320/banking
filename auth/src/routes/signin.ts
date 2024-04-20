@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import User from '../model/user';
+import User from '../model/auth';
 import { Passwords } from '../services/Password';
 import express, { Request, Response } from 'express';
 import { emailValidator, passwordValidator } from '../services/validators';
@@ -13,7 +13,7 @@ router.post(
   [emailValidator(), passwordValidator()],
 
   requestValidator,
-    
+
   async (req: Request, res: Response) => {
     const { email, password } = req.body;
 

@@ -1,7 +1,12 @@
 import express, { Request, Response } from 'express';
 
-import User from '../model/user';
-import { BadRequest, currentUser, paramsChecker, requireAuth } from '@m0banking/common';
+import User from '../model/auth';
+import {
+  BadRequest,
+  currentUser,
+  paramsChecker,
+  requireAuth
+} from '@m0banking/common';
 import { emailValidator, nameValidator } from '../services/validators';
 
 const router = express.Router();

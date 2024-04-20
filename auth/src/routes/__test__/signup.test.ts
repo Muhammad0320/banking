@@ -1,6 +1,6 @@
 import request from 'supertest';
 import { app } from '../../app';
-import User from '../../model/user';
+import User from '../../model/auth';
 
 it('returns a status other than 404, to assert the route is valid', async () => {
   const { statusCode } = await request(app)

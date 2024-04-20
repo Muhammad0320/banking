@@ -1,4 +1,4 @@
-import User from '../model/user';
+import Auth from '../model/authAuth';
 import jwt from 'jsonwebtoken';
 import express, { Request, Response } from 'express';
 import {
@@ -8,6 +8,7 @@ import {
   passwordValidator
 } from '../services/validators';
 import { BadRequest, requestValidator } from '@m0banking/common';
+import Auth from '../model/auth';
 
 const router = express.Router();
 
@@ -21,17 +22,17 @@ router.post(
   async (req: Request, res: Response) => {
     const { email, ...attrs } = req.body;
 
-    const existingUser = await User.findOne({ email });
+    const existingAuth = await Auth.findOne({ email });
 
-    if (!!existingUser) {
+    if (!!existingAuth) {
       throw new BadRequest(
         'This email is in use, Please use another email and try again! '
       );
     }
 
-    const user = await User.buildUser({ ...attrs, email });
+    const authAuth = await Auth.buildAuth({ ...attrs, email });
 
-    const token = jwt.sign({ id: user.id }, process.env.JWT_KEY!, {
+    const token = jwt.sign({ id: authAuth.id }, process.env.JWT_KEY!, {
       expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
     });
 
@@ -39,8 +40,8 @@ router.post(
       jwt: token
     };
 
-    return res.status(201).json({ status: 'success', data: user });
+    return res.status(201).json({ status: 'success', data: authAuth });
   }
 );
 
-export { router as createUserRouter };
+export { router as createAuthRouter };

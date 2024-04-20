@@ -11,7 +11,7 @@ type authAttrs = {
 type authDoc = mongoose.Document & authAttrs & { createdAt: Date };
 
 type authModel = mongoose.Model<authDoc> & {
-  buildauth: (attrs: authAttrs) => Promise<authDoc>;
+  buildAuth: (attrs: authAttrs) => Promise<authDoc>;
 };
 
 const authSchema = new mongoose.Schema(
@@ -54,7 +54,7 @@ const authSchema = new mongoose.Schema(
   }
 );
 
-authSchema.statics.buildauth = async (attrs: authAttrs) => {
+authSchema.statics.buildAuth = async (attrs: authAttrs) => {
   return await Auth.create(attrs);
 };
 
@@ -68,6 +68,6 @@ authSchema.pre('save', async function(next) {
   next();
 });
 
-const Auth = mongoose.model<authDoc, authModel>('auth', authSchema);
+const Auth = mongoose.model<authDoc, authModel>('Auth', authSchema);
 
 export default Auth;

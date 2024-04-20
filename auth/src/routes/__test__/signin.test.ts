@@ -3,7 +3,7 @@ import { app } from '../../app';
 
 it('return status other that 404, to assert the availablility of the route', async () => {
   const response = await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: 'shitman@gmail.com',
       password: 'shitpassword'
@@ -14,7 +14,7 @@ it('return status other that 404, to assert the availablility of the route', asy
 
 it('return a 400 on invalid email', async () => {
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: 'shitman@gmail.com',
       password: 'shitpassword'
@@ -22,7 +22,7 @@ it('return a 400 on invalid email', async () => {
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       password: 'shitpassword'
     })
@@ -33,7 +33,7 @@ it('returns a 400 on incorrect password', async () => {
   const {
     body: { data }
   } = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',
@@ -44,14 +44,14 @@ it('returns a 400 on incorrect password', async () => {
     .expect(201);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: data.email
     })
     .expect(400);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: data.email,
       password: 'shitpassword'
@@ -63,7 +63,7 @@ it('returns a 200 on valid inputs', async () => {
   const {
     body: { data }
   } = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',
@@ -74,7 +74,7 @@ it('returns a 200 on valid inputs', async () => {
     .expect(201);
 
   await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'
@@ -86,7 +86,7 @@ it('asserts that a cookie was set to the headers', async () => {
   const {
     body: { data }
   } = await request(app)
-    .post('/api/v1/user/signup')
+    .post('/api/v1/auth/signup')
     .send({
       name: 'shit man',
       email: 'shitman@gmail.com',
@@ -97,7 +97,7 @@ it('asserts that a cookie was set to the headers', async () => {
     .expect(201);
 
   const response = await request(app)
-    .post('/api/v1/user/signin')
+    .post('/api/v1/auth/signin')
     .send({
       email: data.email,
       password: 'shijgtnjngnrgnr'

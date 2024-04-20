@@ -8,7 +8,7 @@ import {
   passwordValidator
 } from '../services/validators';
 import { BadRequest } from '../../error/BadRequest';
-import { requestValidator } from '../../middleware/requestValidator';
+import { requestValidator } from '../../../common/middleware/requestValidator';
 
 const router = express.Router();
 

@@ -5,7 +5,7 @@ import { NotFound } from '../error/NotFound';
 import { signinRouter } from './routes/signin';
 import { createUserRouter } from './routes/signup';
 import { currentUserRouter } from './routes/currentUser';
-import { globalErrorHandler } from '../middleware/globalErrorHandler';
+import { globalErrorHandler } from '../../common/middleware/globalErrorHandler';
 import { signoutRouter } from './routes/signout';
 
 const app = express();

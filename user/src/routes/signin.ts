@@ -3,7 +3,7 @@ import User from '../model/user';
 import { Passwords } from '../services/Password';
 import { BadRequest } from '../../error/BadRequest';
 import express, { Request, Response } from 'express';
-import { requestValidator } from '../../middleware/requestValidator';
+import { requestValidator } from '../../../common/middleware/requestValidator';
 import { emailValidator, passwordValidator } from '../services/validators';
 
 const router = express.Router();
@@ -28,8 +28,6 @@ router.post(
       existingUser.password,
       password
     );
-
-    console.log(isCorrectPassword);
 
     if (!isCorrectPassword) {
       throw new BadRequest('Invalid login credentials');

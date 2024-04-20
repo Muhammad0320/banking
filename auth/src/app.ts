@@ -2,10 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import cookieSession from 'cookie-session';
 import { signinRouter } from './routes/signin';
-import { signoutRouter } from './routes/signout';
-
-import { globalErrorHandler, NotFound } from '@m0banking/common';
 import { signupRouter } from './routes/signup';
+import { signoutRouter } from './routes/signout';
+import { globalErrorHandler, NotFound } from '@m0banking/common';
 
 const app = express();
 
@@ -25,7 +24,7 @@ app.use(
 
 console.log('Hi mom');
 
-const rootUrl = '/api/v1/user';
+const rootUrl = '/api/v1/auth';
 
 app.use(rootUrl, signupRouter);
 app.use(rootUrl, signinRouter);

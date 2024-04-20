@@ -1,14 +1,12 @@
-import Auth from '../model/authAuth';
 import jwt from 'jsonwebtoken';
+import Auth from '../model/auth';
 import express, { Request, Response } from 'express';
 import {
   emailValidator,
-  nameValidator,
   passwordConfirmationValidator,
   passwordValidator
 } from '../services/validators';
 import { BadRequest, requestValidator } from '@m0banking/common';
-import Auth from '../model/auth';
 
 const router = express.Router();
 
@@ -30,17 +28,21 @@ router.post(
       );
     }
 
-    const authAuth = await Auth.buildAuth({ ...attrs, email });
+    const newAuth = await Auth.buildAuth({ ...attrs, email });
 
-    const token = jwt.sign({ id: authAuth.id }, process.env.JWT_KEY!, {
-      expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
-    });
+    const token = jwt.sign(
+      { id: newAuth.id, email: newAuth.email },
+      process.env.JWT_KEY!,
+      {
+        expiresIn: +process.env.JWT_EXPIRES_IN! * 60 * 60
+      }
+    );
 
     req.session = {
       jwt: token
     };
 
-    return res.status(201).json({ status: 'success', data: authAuth });
+    return res.status(201).json({ status: 'success', data: newAuth });
   }
 );
 

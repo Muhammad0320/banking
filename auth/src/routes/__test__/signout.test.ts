@@ -3,7 +3,7 @@ import { app } from '../../app';
 
 it('returns a 401, if unauthenticated user tried to logout', async () => {
   await request(app)
-    .post('/api/v1/user/signout')
+    .post('/api/v1/auth/signout')
     .send({})
     .expect(401);
 });
@@ -12,7 +12,7 @@ it('returns a 200, if the user is authenticated', async () => {
   const cookie = await global.signin();
 
   const response = await request(app)
-    .post('/api/v1/user/signout')
+    .post('/api/v1/auth/signout')
     .set('Cookie', cookie)
     .send({})
     .expect(200);

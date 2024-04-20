@@ -7,8 +7,7 @@ import {
   passwordConfirmationValidator,
   passwordValidator
 } from '../services/validators';
-import { BadRequest } from '../../error/BadRequest';
-import { requestValidator } from '../../../common/middleware/requestValidator';
+import { BadRequest, requestValidator } from '@m0banking/common';
 
 const router = express.Router();
 

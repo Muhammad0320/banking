@@ -1,21 +1,7 @@
 import mongoose from 'mongoose';
-
-enum AccountType {
-  Current = 'current',
-  Savings = 'savings',
-  Investment = 'investment'
-}
-
-enum AccountCurrency {
-  NGN = 'NGN',
-  USD = 'USD'
-}
-
-enum AccountStatus {
-  Frozen = 'frozen',
-  Blocked = 'blocked',
-  Active = 'active'
-}
+import { AccountStatus } from '../enums/AccountStatusEnum';
+import { AccountType } from '../enums/AccountTypeEnum';
+import { AccountCurrency } from '../enums/AccountCurrencyEnum';
 
 type AccountAttrs = {
   balance: number;

@@ -55,7 +55,7 @@ const authSchema = new mongoose.Schema(
 );
 
 authSchema.statics.buildauth = async (attrs: authAttrs) => {
-  return await auth.create(attrs);
+  return await Auth.create(attrs);
 };
 
 authSchema.pre('save', async function(next) {
@@ -68,6 +68,6 @@ authSchema.pre('save', async function(next) {
   next();
 });
 
-const auth = mongoose.model<authDoc, authModel>('auth', authSchema);
+const Auth = mongoose.model<authDoc, authModel>('auth', authSchema);
 
-export default auth;
+export default Auth;

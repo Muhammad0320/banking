@@ -46,4 +46,4 @@ router.post(
   }
 );
 
-export { router as createAuthRouter };
+export { router as signupRouter };

@@ -1,6 +1,5 @@
+import { currentUser, requireAuth } from '@m0banking/common';
 import express, { Request, Response } from 'express';
-import { currentUser } from '../../../common/middleware/currentUser';
-import { requireAuth } from '../../../common/middleware/requireAuth';
 
 const router = express.Router();
 

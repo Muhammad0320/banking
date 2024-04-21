@@ -26,3 +26,6 @@ __exportStar(require("./middleware/currentUser"), exports);
 __exportStar(require("./middleware/paramsChecker"), exports);
 __exportStar(require("./middleware/requestValidator"), exports);
 __exportStar(require("./middleware/globalErrorHandler"), exports);
+__exportStar(require("./validator/nameValidator"), exports);
+__exportStar(require("./validator/emailValiddator"), exports);
+__exportStar(require("./validator/passwordsValidator"), exports);

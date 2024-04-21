@@ -12,3 +12,7 @@ export * from "./middleware/currentUser";
 export * from "./middleware/paramsChecker";
 export * from "./middleware/requestValidator";
 export * from "./middleware/globalErrorHandler";
+
+export * from "./validator/nameValidator";
+export * from "./validator/emailValiddator";
+export * from "./validator/passwordsValidator";
